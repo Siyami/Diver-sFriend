@@ -40,6 +40,7 @@
 
 ///////////////////
 //Google Places
+
 (function() {
   'use strict';
   const $xhr = $.ajax({
