@@ -73,10 +73,6 @@
           rating: results.rating,
           icon: results.icon
 
-          // id: result.imdbID,
-          // poster: result.Poster,
-          // title: result.Title,
-          // year: result.Year
         };
 
         // getPlot(shop);
@@ -117,30 +113,33 @@
     // let $tdSunSetValue = $('<td>');
 
     $tdTemp.text('Temperature:');
+    // $tdTempValue = weatherCondition.temp;
     $tdTempValue.text(weatherCondition.temp);
     $tdDescription.text('Description:');
-    $tdDescriptionValue = weatherCondition.description;
+    $tdDescriptionValue.text(weatherCondition.description);
     $tdWind.text('Wind:');
-    $tdWindValue = weatherCondition.wind;
+    $tdWindValue.text(weatherCondition.windSpeed);
     $tdVisibility.text('Visibility:');
-    $tdVisibilityValue = weatherCondition.visibility;
+    $tdVisibilityValue.text(weatherCondition.visibility);
     $tdHumidity.text('Humidity:');
-    $tdHumidityValue = weatherCondition.humidity;
+    $tdHumidityValue.text(weatherCondition.humidity);
+
+
     // $tdSunRise = 'SunRise: ';
     // $tdSunRiseValue = weatherCondition.sunrise;
     // $tdSunSet = 'SunSet: ';
     // $tdSunSetValue = weatherCondition.sunset;
 
     $tr1.append($tdTemp);
-    $tr1.append($tdTempValue);
+    $tr1.append($tdTempValue.text() + ' F');
     $tr2.append($tdDescription);
     $tr2.append($tdDescriptionValue);
     $tr3.append($tdWind);
-    $tr3.append($tdWindValue);
+    $tr3.append($tdWindValue.text() + ' mph');
     $tr4.append($tdVisibility);
-    $tr4.append($tdVisibilityValue);
+    $tr4.append($tdVisibilityValue.text() + ' miles');
     $tr5.append($tdHumidity);
-    $tr5.append($tdHumidityValue + '%');
+    $tr5.append($tdHumidityValue.text() + '%');
     // $tr6.append($tdSunRise);
     // $tr6.append($tdSunRiseValue);
     // $tr7.append($tdSunSet);
@@ -174,13 +173,15 @@
 
       weatherCondition = {
         description: data.weather[0].description,
-        temp: data.main.temp,
-        wind: data.wind.speed,
-        visibility: data.visibility,
+        temp: ((data.main.temp - 273) * 9 / 5 + 32).toFixed(1),
+        windSpeed: (data.wind.speed * 2.23694).toFixed(1),
+        visibility: ((data.visibility) * 0.000621371).toFixed(0),
         humidity: data.main.humidity,
         sunrise: data.sys.sunrise,
         sunset: data.sys.sunset
       };
+
+
 
       // weatherConditions.push(weatherCondition);
       // console.log(weatherConditions);
