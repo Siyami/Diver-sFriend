@@ -6,7 +6,7 @@
   let weatherCondition = [];
   let picture;
 
-  const renderScubaShops = function(enteredCity) {
+  const renderScubaShops = function() {
 
     $('#list').empty();
 
@@ -37,8 +37,9 @@
       //   $image.attr('alt', shop.name);
       // }
       // $link.attr('href', 'target="_blank"')
-      // $link.attr('href', 'www.google.com/search?q=' +
-      //   enteredCity);
+      $link.attr('href', 'http://www.google.com/search?q=Diving+Shop+' +
+        shop
+        .name);
       $link.text('Search in Google');
       $image.attr('src', 'diver.jpg');
 
