@@ -1,8 +1,4 @@
 // `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photoReference}&key=AIzaSyA-zAlNCgElfIESK0chL5FG2AWaL6u5aiA`
-/////
-////
-///
-//
 
 (function() {
   'use strict';
@@ -10,7 +6,7 @@
   let weatherCondition = [];
   let picture;
 
-  const renderScubaShops = function() {
+  const renderScubaShops = function(enteredCity) {
 
     $('#list').empty();
 
@@ -24,8 +20,15 @@
       const $cardContent = $('<div>').addClass('card-content');
       const $paragraph1 = $('<p>');
       const $paragraph2 = $('<p>');
+      const $link = $('<a>');
+      const $cardAction = $('<div>').addClass('card-action');
+      $cardAction.append($link);
+      // <div class="card-action">
+      //         <a href="#">This is a link</a>
+      //       </div>
+
       $cardContent.append($paragraph2, $paragraph1);
-      $card.append($cardImage, $cardContent);
+      $card.append($cardImage, $cardContent, $cardAction);
       $col.append($card);
 
       // if (shop.image[0]) {
@@ -33,6 +36,10 @@
       // } else {
       //   $image.attr('alt', shop.name);
       // }
+      // $link.attr('href', 'target="_blank"')
+      // $link.attr('href', 'www.google.com/search?q=' +
+      //   enteredCity);
+      $link.text('Search in Google');
       $image.attr('src', 'diver.jpg');
 
       $span.text(shop.name);
@@ -102,7 +109,7 @@
 
       console.log(shops);
 
-      renderScubaShops();
+      renderScubaShops(enteredCity);
     });
 
     $xhr.fail((err) => {
@@ -214,8 +221,8 @@
     });
   };
 
-  $('form').on('submit', (event) => {
-    event.preventDefault();
+  $('#searchShops').on('click', (event) => {
+    // event.preventDefault();
 
     const enteredCity = $('#search').val();
 
@@ -224,7 +231,19 @@
     }
 
     getScubaShops(enteredCity);
+
+  });
+  $('#weatherConditions').on('click', (event) => {
+    // event.preventDefault();
+
+    const enteredCity = $('#search').val();
+    console.log(enteredCity);
+
+    if (enteredCity.trim() === '') {
+      return;
+    }
     getWeatherConditions(enteredCity);
+
   });
 
 })();

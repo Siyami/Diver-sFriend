@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="css/materialize.min.css">
     <link rel="stylesheet" href="css/styles.css">
+
   </head>
   <body>
     <div class="navbar-fixed">
@@ -32,21 +33,23 @@
 
       <div class="row">
 
-        <form>
-          <div class="col offset-s4 s2">
+        <div>
+          <div class="col offset-s3 s2">
             <div class="input-field">
-              <input type="text" placeholder="Enter a city name" id="search" name="search"/>
+              <input class = "validate" type="text" placeholder="Enter a location" id="search" name="search"/>
             </div>
           </div>
 
-          <div class="col s3">
-            <button class="btn-large waves-effect waves-light" type="submit" name="action">
+          <div class="col s4">
+            <!-- <button class="btn-large waves-effect waves-light" type="submit" name="action">
               <i class="material-icons right">search</i>
               Search
-            </button>
+            </button> -->
+            <a id='searchShops' class="waves-effect waves-light btn"><i class="material-icons left"></i>Find Diving Shops</a>
+            <a id='weatherConditions' class="waves-effect waves-light btn"><i class="material-icons left"></i>Get Weather Conditions</a>
           </div>
 
-        </form>
+        </div>
 
       </div>
 
