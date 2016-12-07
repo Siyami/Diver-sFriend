@@ -1,56 +1,69 @@
+// `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photoReference}&key=AIzaSyA-zAlNCgElfIESK0chL5FG2AWaL6u5aiA`
+/////
+////
+///
+//
+
 (function() {
   'use strict';
   let shops = [];
   let weatherCondition = [];
+  let picture;
 
   const renderScubaShops = function() {
-    $('#listings').empty();
-    $('.material-tooltip').remove();
+
+    $('#list').empty();
 
     for (const shop of shops) {
-      const $col = $('<div>').addClass('col s4');
+      const $col = $('<div>').addClass('col s12 m3');
       const $card = $('<div>').addClass('card hoverable');
-      const $content = $('<div>').addClass('card-content center');
-      const $title = $('<h6>').addClass('card-title truncate');
+      const $cardImage = $('<div>').addClass('card-image');
+      const $image = $('<img>');
+      const $span = $('<span>').addClass('card-title');
+      $cardImage.append($image, $span);
+      const $cardContent = $('<div>').addClass('card-content');
+      const $paragraph1 = $('<p>');
+      const $paragraph2 = $('<p>');
+      $cardContent.append($paragraph2, $paragraph1);
+      $card.append($cardImage, $cardContent);
+      $col.append($card);
 
-      $title.attr({
-        'data-position': 'top',
-        'data-tooltip': shop.name
-      });
+      // if (shop.image[0]) {
+      //   $image.attr('src', shop.image[0]);
+      // } else {
+      //   $image.attr('alt', shop.name);
+      // }
+      $image.attr('src', 'diver.jpg');
 
-      $title.tooltip({
-        delay: 50
-      }).text(shop.name);
+      $span.text(shop.name);
 
-      const $poster = $('<img>').addClass('poster');
+      // $parahraph2.text('Rating: N/A');
+      // else if (typeof Number(shop.rating) === 'number')
+      $paragraph2.text('Rating: ' + shop.rating);
 
-      $poster.attr({
-        src: shop.icon,
-        alt: `${shop.icon} Poster`
-      });
+      $paragraph1.text('Address: ' + shop.address);
 
-      $content.append($title, $poster);
-      $card.append($content);
-
-      const $action = $('<div>').addClass('card-action center');
-
-      $card.append($action);
-
-      const $modal = $('<div>').addClass('modal').attr('rating', shop.rating);
-      const $modalContent = $('<div>').addClass('modal-content');
-      const $modalHeader = $('<h4>').text(shop.name);
-      // const $movieYear = $('<h6>').text(`Released in ${shop.year}`);
-      // const $modalText = $('<p>').text(shop.plot);
-
-      $modalContent.append($modalHeader);
-      $modal.append($modalContent);
-
-      $col.append($card, $modal);
-
-      $('#listings').append($col);
-
-      $('.modal-trigger').leanModal();
+      $('#list').append($col);
     }
+  };
+
+  const getPhotoReference = function(ref) {
+
+    const $xhr = $.ajax({
+      method: 'GET',
+      url: `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${ref}&key=AIzaSyA-zAlNCgElfIESK0chL5FG2AWaL6u5aiA`,
+      dataType: 'json'
+    });
+
+    $xhr.done((data) => {
+      picture = data;
+      console.log(picture);
+
+    });
+
+    $xhr.fail((err) => {
+      console.error(err);
+    });
   };
 
   const getScubaShops = function(enteredCity) {
@@ -63,22 +76,33 @@
     });
 
     $xhr.done((data) => {
-      // console.log(data);
       const results = data.results;
 
       for (const result of results) {
+        if (result.photos) {
+          getPhotoReference(result.photos[0].photo_reference);
+        }
+
         const shop = {
-          address: results.formatted_address,
-          name: results.name,
-          rating: results.rating,
-          icon: results.icon
+          address: result.formatted_address,
+          name: result.name,
+          rating: result.rating,
+          icon: result.icon,
+          image: picture
 
+          // for (const photo of result.photos) {
+          //   image = photo.photo_reference;
+          // }
         };
-
-        // getPlot(shop);
+        // if (result.photos) {
+        //   shop.image = result.photos[0].html_attributions;
+        // }
         shops.push(shop);
-        renderScubaShops();
       }
+
+      console.log(shops);
+
+      renderScubaShops();
     });
 
     $xhr.fail((err) => {
@@ -115,7 +139,7 @@
     $tdTemp.text('Temperature:');
     // $tdTempValue = weatherCondition.temp;
     $tdTempValue.text(weatherCondition.temp);
-    $tdDescription.text('Description:');
+    $tdDescription.text('Weather Description:');
     $tdDescriptionValue.text(weatherCondition.description);
     $tdWind.text('Wind:');
     $tdWindValue.text(weatherCondition.windSpeed);
@@ -123,7 +147,6 @@
     $tdVisibilityValue.text(weatherCondition.visibility);
     $tdHumidity.text('Humidity:');
     $tdHumidityValue.text(weatherCondition.humidity);
-
 
     // $tdSunRise = 'SunRise: ';
     // $tdSunRiseValue = weatherCondition.sunrise;
@@ -169,7 +192,6 @@
     });
 
     $xhr.done((data) => {
-      console.log(data);
 
       weatherCondition = {
         description: data.weather[0].description,
@@ -180,8 +202,6 @@
         sunrise: data.sys.sunrise,
         sunset: data.sys.sunset
       };
-
-
 
       // weatherConditions.push(weatherCondition);
       // console.log(weatherConditions);

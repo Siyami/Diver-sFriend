@@ -17,11 +17,7 @@ main {
   margin-bottom: 15px;
 }
 
-.poster {
+.picture {
   height: 200px;
   max-width: 100%;
-}
-
-#omdb {
-  text-decoration: underline;
 }
