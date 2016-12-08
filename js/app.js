@@ -3,7 +3,7 @@
 (function() {
   'use strict';
   let shops = [];
-  let weatherCondition = [];
+  // let weatherCondition = [];
   let picture;
 
   const renderScubaShops = function() {
@@ -56,25 +56,6 @@
     }
   };
 
-  // const getPhotoReference = function(ref) {
-  //
-  //   const $xhr = $.ajax({
-  //     method: 'GET',
-  //     url: `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${ref}&key=AIzaSyBDdRrZWsRngLGE8i3A1nsfqqap8pzb8FQ`,
-  //     dataType: 'json'
-  //   });
-  //
-  //   $xhr.done((data) => {
-  //     picture = data;
-  //     console.log(picture);
-  //
-  //   });
-  //
-  //   $xhr.fail((err) => {
-  //     console.error(err);
-  //   });
-  // };
-
   const getScubaShops = function(enteredCity) {
     shops = [];
 
@@ -109,8 +90,6 @@
         shops.push(shop);
       }
 
-      console.log(shops);
-
       renderScubaShops(enteredCity);
     });
 
@@ -120,9 +99,14 @@
   };
 
   const renderWeatherConditions = function(weatherCondition) {
-    const $tbody = $('tbody');
-    $tbody.empty();
 
+    const $tableToday = $('#tableToday');
+    // empty table if user clicks more than once
+    $tableToday.empty();
+    const $tableThreeDays = $('#tableThreeDays');
+    // empty table if user clicks more than once
+    $tableThreeDays.empty();
+    const $tbody = $('<tbody>');
     const $tr1 = $('<tr>');
     const $tr2 = $('<tr>');
     const $tr3 = $('<tr>');
@@ -153,7 +137,7 @@
     $tdHumidity.text('Humidity:');
     $tdHumidityValue.text(weatherCondition.humidity);
 
-    $('#today').text("TODAY'S CONDITIONS");
+    // $('#today').text("TODAY'S CONDITIONS");
     $tr1.append($tdTemp);
     $tr1.append($tdTempValue.text() + ' F');
     $tr2.append($tdDescription);
@@ -170,6 +154,7 @@
     $tbody.append($tr3);
     $tbody.append($tr4);
     $tbody.append($tr5);
+    $tableToday.append($tbody);
 
     // $tdTempValue.addClass('right-align');
     // $tdDescriptionValue.addClass('right-align');
@@ -178,7 +163,7 @@
   };
 
   const getWeatherConditions = function(enteredCity) {
-    // weatherConditions = [];
+    let weatherCondition;
 
     const $xhr = $.ajax({
       method: 'GET',
@@ -192,7 +177,7 @@
         description: data.weather[0].description,
         temp: ((data.main.temp - 273) * 9 / 5 + 32).toFixed(1),
         windSpeed: (data.wind.speed * 2.23694).toFixed(1),
-        visibility: ((data.visibility) * 0.000621371).toFixed(0),
+        visibility: ((data.visibility) / 1760).toFixed(1),
         humidity: data.main.humidity,
         sunrise: data.sys.sunrise,
         sunset: data.sys.sunset
@@ -235,73 +220,3 @@
   });
 
 })();
-
-///////////////////////
-//   jQuery is required to run this code
-//   $(document).ready(function() {
-//
-//     scaleVideoContainer();
-//
-//     initBannerVideoSize('.video-container .poster img');
-//     initBannerVideoSize('.video-container .filter');
-//     initBannerVideoSize('.video-container video');
-//
-//     $(window).on('resize', function() {
-//       scaleVideoContainer();
-//       scaleBannerVideoSize('.video-container .poster img');
-//       scaleBannerVideoSize('.video-container .filter');
-//       scaleBannerVideoSize('.video-container video');
-//     });
-//
-//   });
-//
-//   function scaleVideoContainer() {
-//
-//     var height = $(window).height() + 5;
-//     var unitHeight = parseInt(height) + 'px';
-//     $('.homepage-hero-module').css('height', unitHeight);
-//
-//   }
-//
-//   function initBannerVideoSize(element) {
-//
-//     $(element).each(function() {
-//       $(this).data('height', $(this).height());
-//       $(this).data('width', $(this).width());
-//     });
-//
-//     scaleBannerVideoSize(element);
-//
-//   }
-//
-//   function scaleBannerVideoSize(element) {
-//
-//     var windowWidth = $(window).width(),
-//       windowHeight = $(window).height() + 5,
-//       videoWidth,
-//       videoHeight;
-//
-//     console.log(windowHeight);
-//
-//     $(element).each(function() {
-//       var videoAspectRatio = $(this).data('height') / $(this).data(
-//         'width');
-//
-//       $(this).width(windowWidth);
-//
-//       if (windowWidth < 1000) {
-//         videoHeight = windowHeight;
-//         videoWidth = videoHeight / videoAspectRatio;
-//         $(this).css({
-//           'margin-top': 0,
-//           'margin-left': -(videoWidth - windowWidth) / 2 + 'px'
-//         });
-//
-//         $(this).width(videoWidth).height(videoHeight);
-//       }
-//
-//       $('.homepage-hero-module .video-container video').addClass(
-//         'fadeIn animated');
-//
-//     });
-//   }
