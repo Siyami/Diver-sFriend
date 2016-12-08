@@ -9,6 +9,7 @@
     <script defer src="js/jquery-2.2.4.min.js"></script>
     <script defer src="js/materialize.min.js"></script>
     <script defer src="js/app.js"></script>
+    <script defer src="js/threeDayWeather.js"></script>
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="css/materialize.min.css">
@@ -28,25 +29,38 @@
         </div>
       </nav>
     </div>
+    <!-- <div class="homepage-hero-module">
+      <div class="video-container">
+        <div class="filter"></div>
+        <video autoplay loop class="fillWidth">
+          <source src="Infinity/MP4/Infinity.mp4" type="video/mp4" />Your browser does not support the video tag. I suggest you upgrade your browser.
+          <source src="Infinity/WEBM/Imfinity.webm" type="video/webm" />Your browser does not support the video tag. I suggest you upgrade your browser.
+        </video>
+        <div class="poster hidden">
+          <img src="PATH_TO_JPEG" alt="">
+        </div>
+      </div>
+    </div> -->
 
     <main class="container">
 
-      <div class="row">
+      <div class="valign-wrapper row" id="image">
 
         <div>
-          <div class="col offset-s3 s2">
+          <div class="col offset-s2 s3">
             <div class="input-field">
-              <input class = "validate" type="text" placeholder="Enter a location" id="search" name="search"/>
+              <input class = "validate" type="text" placeholder="ENTER A LOCATION" id="search" name="search"/>
             </div>
           </div>
 
-          <div class="col s4">
+          <div class="col s5">
             <!-- <button class="btn-large waves-effect waves-light" type="submit" name="action">
               <i class="material-icons right">search</i>
               Search
             </button> -->
-            <a id='searchShops' class="waves-effect waves-light btn"><i class="material-icons left"></i>Find Diving Shops</a>
-            <a id='weatherConditions' class="waves-effect waves-light btn"><i class="material-icons left"></i>Get Weather Conditions</a>
+            <a id='searchShops' class="waves-effect waves-light btn blue"><i class="material-icons left"></i>Find Diving Shops</a>
+            <a id='weatherConditions' class="waves-effect waves-light btn blue"><i class="material-icons left"></i>Today's Weather Conditions</a>
+            <a id='weatherForThreeDays' class="waves-effect waves-light btn blue"><i class="material-icons left"></i>Next Three Days</a>
           </div>
 
         </div>
@@ -54,6 +68,8 @@
       </div>
 
       <div class="row">
+
+        <p id='today' class='col offset-s5'></p>
         <table class="col offset-s4 s4 bordered striped">
           <!-- <thead>
             <tr>
@@ -74,7 +90,6 @@
       <div id="list" class="row"></div>
 
     </main>
-    <!-- <img src="" alt=""> -->
 
     <footer class="page-footer blue darken-2">
       <div class="container">
