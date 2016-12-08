@@ -7,6 +7,10 @@ body {
   background-size: cover;
 }
 
+#search {
+  width: 180px;
+}
+
 .buttonWidth{
   width: 300px;
   margin: 5px;
