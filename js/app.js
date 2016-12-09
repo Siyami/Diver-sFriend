@@ -199,6 +199,7 @@
     const enteredCity = $('#search').val();
 
     if (enteredCity.trim() === '') {
+      Materialize.toast('Please enter a city or zipcode', 2000, 'rounded');
       return;
     }
 
@@ -212,6 +213,7 @@
     const enteredCity = $('#search').val();
 
     if (enteredCity.trim() === '') {
+      Materialize.toast('Please enter a city or zipcode', 2000, 'rounded');
       return;
     }
     getWeatherConditions(enteredCity);
