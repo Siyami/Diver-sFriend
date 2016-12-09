@@ -39,8 +39,14 @@ nav {
 }
 
 #search {
-  width: 222px;
+  width: 183px;
 }
+
+/*#tables{*/
+  /*display:inline-block;*/
+  /*float: left;
+  display: flex;
+}*/
 
 .buttonWidth{
   width: 290px;
