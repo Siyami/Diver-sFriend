@@ -29,6 +29,10 @@ html {
   color: black;
 }
 
+tbody {
+  background-color: #1976D2;
+}
+
 nav {
   opacity: 0.9;
   background-color: #1976D2;
@@ -39,7 +43,7 @@ nav {
 }
 
 .buttonWidth{
-  width: 279px;
+  width: 290px;
   margin: 5px;
 }
 
