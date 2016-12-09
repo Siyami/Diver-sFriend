@@ -77,7 +77,6 @@
           address: result.formatted_address,
           name: result.name,
           rating: result.rating,
-          icon: result.icon,
           image: picture
 
           // for (const photo of result.photos) {

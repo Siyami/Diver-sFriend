@@ -10,16 +10,18 @@
     <script defer src="js/materialize.min.js"></script>
     <script defer src="js/app.js"></script>
     <script defer src="js/threeDayWeather.js"></script>
+    <script defer src="Infinity/background.js"></script>
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="css/materialize.min.css">
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="Infinity/background.css">
 
   </head>
   <body>
-    <div class="navbar-fixed">
+    <div class="navbar-fixed blue darken-2">
       <nav>
-        <div class="nav-wrapper blue darken-2">
+        <div class="nav-wrapper">
           <div class="container">
             <a href="index.html" class="brand-logo center">
               <i class="material-icons left">invert_colors</i>
@@ -29,6 +31,12 @@
         </div>
       </nav>
     </div>
+
+    <video poster="Infinity/Infinity.jpg" id="bgvid" autoplay muted loop>
+      <source src="Infinity/Infinity.webm" type="video/webm">
+      <source src="Infinity/Infinity.mp4" type="video/mp4">
+    </video>
+
 
     <main class="container">
 
