@@ -8,10 +8,6 @@ body {
   background-color: #1976D2;
 }
 
-input#search.validate {
-  text-color: #1976D2;
-}
-
 input:not([type]), input[type=text], input[type=password], input[type=email], input[type=url], input[type=time], input[type=date], input[type=datetime], input[type=datetime-local], input[type=tel], input[type=number], input[type=search], textarea.materialize-textarea{
   background-color: rgba(100, 100, 100, 0.65);
 }
@@ -42,12 +38,6 @@ nav {
   width: 183px;
 }
 
-/*#tables{*/
-  /*display:inline-block;*/
-  /*float: left;
-  display: flex;
-}*/
-
 .buttonWidth{
   width: 290px;
   margin: 5px;
@@ -60,15 +50,6 @@ table{
 main {
   flex: 1 0 auto;
 }
-
-/*.navbar-fixed {
-  margin-bottom: 1px;
-}*/
-
-/*.picture {
-  height: 200px;
-  max-width: 100%;
-}*/
 
 #image{
   /*text-align: center;*/
