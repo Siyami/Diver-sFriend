@@ -1,14 +1,12 @@
 (function() {
   'use strict';
-  // let weatherConditions = [];
-
-
   const renderThreeDayConditions = function(weatherForThree) {
-    console.log(weatherForThree);
     const $tableToday = $('#tableToday');
+
     // empty table if user clicks more than once
     $tableToday.empty();
     const $tableThreeDays = $('#tableThreeDays');
+
     // empty table if user clicks more than once
     $tableThreeDays.empty();
 
@@ -19,16 +17,16 @@
     const $tr4 = $('<tr>');
     const $tr5 = $('<tr>');
 
-    let $tdTempMax = $('<td>');
-    let $tdTempMaxValue = $('<td>');
-    let $tdTempMin = $('<td>');
-    let $tdTempMinValue = $('<td>');
-    let $tdDescription = $('<td>');
-    let $tdDescriptionValue = $('<td>');
-    let $tdWind = $('<td>');
-    let $tdWindValue = $('<td>');
-    let $tdHumidity = $('<td>');
-    let $tdHumidityValue = $('<td>');
+    const $tdTempMax = $('<td>');
+    const $tdTempMaxValue = $('<td>');
+    const $tdTempMin = $('<td>');
+    const $tdTempMinValue = $('<td>');
+    const $tdDescription = $('<td>');
+    const $tdDescriptionValue = $('<td>');
+    const $tdWind = $('<td>');
+    const $tdWindValue = $('<td>');
+    const $tdHumidity = $('<td>');
+    const $tdHumidityValue = $('<td>');
 
     $tdTempMax.text('Max Temperature:');
     $tdTempMaxValue.text(weatherForThree.tempMax);
@@ -59,11 +57,8 @@
     $tbody.append($tr4);
     $tbody.append($tr5);
     $tableThreeDays.append($tbody);
-    // $tableThreeDays.append($table);
 
     // $tdTempValue.addClass('right-align');
-    // $tdDescriptionValue.addClass('right-align');
-    // $tdWindValue.addClass('right-align');
   };
 
   const getThreeDayConditions = function(enteredCity) {
@@ -71,11 +66,10 @@
     const $xhr = $.ajax({
       method: 'GET',
       url: `http://api.openweathermap.org/data/2.5/forecast/daily?q=${enteredCity}&units=imperial&cnt=7&appid=9e9c8eb46706a6b46d17b3d70a7c3ae1`,
-      dataType: 'json',
+      dataType: 'json'
     });
 
     $xhr.done((data) => {
-
       weatherForThree = {
         tempMax: data.list[1].temp.max,
         tempMin: data.list[1].temp.min,
@@ -84,20 +78,12 @@
         humidity: data.list[1].humidity
       };
 
-      // console.log(weatherCondition);
-
-      // weatherConditions.push(weatherCondition);
-      // console.log(weatherConditions);
-      // renderWeatherConditions(weatherCondition);
-
       renderThreeDayConditions(weatherForThree);
     });
-
 
     $xhr.fail((err) => {
       console.error(err);
     });
-
   };
 
   $('#weatherForThreeDays').on('click', (event) => {

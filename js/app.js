@@ -1,13 +1,9 @@
-// `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photoReference}&key=AIzaSyA-zAlNCgElfIESK0chL5FG2AWaL6u5aiA`
-
 (function() {
   'use strict';
   let shops = [];
-  // let weatherCondition = [];
   let picture;
 
   const renderScubaShops = function() {
-
     $('#list').empty();
 
     for (const shop of shops) {
@@ -16,27 +12,18 @@
       const $cardImage = $('<div>').addClass('card-image');
       const $image = $('<img>');
       const $span = $('<span>').addClass('card-title');
-      $cardImage.append($image, $span);
       const $cardContent = $('<div>').addClass('card-content');
       const $paragraph1 = $('<p>');
       const $paragraph2 = $('<p>');
       const $link = $('<a>');
       const $cardAction = $('<div>').addClass('card-action');
-      $cardAction.append($link);
-      // <div class="card-action">
-      //         <a href="#">This is a link</a>
-      //       </div>
 
+      $cardImage.append($image, $span);
+      $cardAction.append($link);
       $cardContent.append($paragraph2, $paragraph1);
       $card.append($cardImage, $cardContent, $cardAction);
       $col.append($card);
 
-      // if (shop.image[0]) {
-      //   $image.attr('src', shop.image[0]);
-      // } else {
-      //   $image.attr('alt', shop.name);
-      // }
-      // $link.attr('href', 'target="_blank"')
       $link.attr({
         href: 'http://www.google.com/search?q=Diving+Shop+' + shop.name,
         target: '_blank'
@@ -69,23 +56,12 @@
       const results = data.results;
 
       for (const result of results) {
-        // if (result.photos) {
-        //   getPhotoReference(result.photos[0].photo_reference);
-        // }
-
         const shop = {
           address: result.formatted_address,
           name: result.name,
           rating: result.rating,
           image: picture
-
-          // for (const photo of result.photos) {
-          //   image = photo.photo_reference;
-          // }
         };
-        // if (result.photos) {
-        //   shop.image = result.photos[0].html_attributions;
-        // }
         shops.push(shop);
       }
 
@@ -98,11 +74,12 @@
   };
 
   const renderWeatherConditions = function(weatherCondition) {
-
     const $tableToday = $('#tableToday');
+
     // empty table if user clicks more than once
     $tableToday.empty();
     const $tableThreeDays = $('#tableThreeDays');
+
     // empty table if user clicks more than once
     $tableThreeDays.empty();
     const $tbody = $('<tbody>');
@@ -111,21 +88,19 @@
     const $tr3 = $('<tr>');
     const $tr4 = $('<tr>');
     const $tr5 = $('<tr>');
-    const $tr6 = $('<tr>');
-    const $tr7 = $('<tr>');
-    let $tdTemp = $('<td>');
-    let $tdTempValue = $('<td>');
-    let $tdDescription = $('<td>');
-    let $tdDescriptionValue = $('<td>');
-    let $tdWind = $('<td>');
-    let $tdWindValue = $('<td>');
-    let $tdVisibility = $('<td>');
-    let $tdVisibilityValue = $('<td>');
-    let $tdHumidity = $('<td>');
-    let $tdHumidityValue = $('<td>');
+
+    const $tdTemp = $('<td>');
+    const $tdTempValue = $('<td>');
+    const $tdDescription = $('<td>');
+    const $tdDescriptionValue = $('<td>');
+    const $tdWind = $('<td>');
+    const $tdWindValue = $('<td>');
+    const $tdVisibility = $('<td>');
+    const $tdVisibilityValue = $('<td>');
+    const $tdHumidity = $('<td>');
+    const $tdHumidityValue = $('<td>');
 
     $tdTemp.text('Temperature:');
-    // $tdTempValue = weatherCondition.temp;
     $tdTempValue.text(weatherCondition.temp);
     $tdDescription.text('Weather Description:');
     $tdDescriptionValue.text(weatherCondition.description);
@@ -156,9 +131,6 @@
     $tableToday.append($tbody);
 
     // $tdTempValue.addClass('right-align');
-    // $tdDescriptionValue.addClass('right-align');
-    // $tdWindValue.addClass('right-align');
-
   };
 
   const getWeatherConditions = function(enteredCity) {
@@ -171,7 +143,6 @@
     });
 
     $xhr.done((data) => {
-
       weatherCondition = {
         description: data.weather[0].description,
         temp: ((data.main.temp - 273) * 9 / 5 + 32).toFixed(1),
@@ -182,10 +153,7 @@
         sunset: data.sys.sunset
       };
 
-      // weatherConditions.push(weatherCondition);
-      // console.log(weatherConditions);
       renderWeatherConditions(weatherCondition);
-
     });
 
     $xhr.fail((err) => {
@@ -200,11 +168,11 @@
 
     if (enteredCity.trim() === '') {
       Materialize.toast('Please enter a city or zipcode', 2000, 'rounded');
+
       return;
     }
 
     getScubaShops(enteredCity);
-
   });
 
   $('#weatherConditions').on('click', (event) => {
@@ -214,10 +182,9 @@
 
     if (enteredCity.trim() === '') {
       Materialize.toast('Please enter a city or zipcode', 2000, 'rounded');
+
       return;
     }
     getWeatherConditions(enteredCity);
-
   });
-
 })();
