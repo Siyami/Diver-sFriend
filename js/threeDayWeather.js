@@ -1,5 +1,6 @@
 (function() {
   'use strict';
+
   const renderThreeDayConditions = function(weatherForThree) {
     const $tableToday = $('#tableToday');
 
@@ -88,12 +89,13 @@
 
   $('#weatherForThreeDays').on('click', (event) => {
     event.preventDefault();
-
     const enteredCity = $('#search').val();
+
     console.log(enteredCity);
 
     if (enteredCity.trim() === '') {
       Materialize.toast('Please enter a city or zipcode', 2000, 'rounded');
+
       return;
     }
     getThreeDayConditions(enteredCity);

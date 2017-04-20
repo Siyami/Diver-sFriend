@@ -1,5 +1,6 @@
 (function() {
   'use strict';
+
   let shops = [];
   let picture;
 
